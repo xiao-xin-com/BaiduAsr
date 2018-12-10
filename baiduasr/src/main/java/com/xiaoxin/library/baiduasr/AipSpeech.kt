@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.telephony.TelephonyManager
+import android.util.Base64
 import android.util.Log
 import androidx.annotation.RequiresPermission
 import com.xiaoxin.library.baiduasr.data.AsrResult
@@ -53,7 +54,7 @@ class AipSpeech(
     // Return null if device ID is not available.
     @RequiresPermission(android.Manifest.permission.READ_PHONE_STATE)
     @SuppressLint("HardwareIds,MissingPermission")
-    fun cuid(): String? {
+    private fun cuid(): String? {
         val manager: TelephonyManager = context.applicationContext
             .getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager ?: return null
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -111,7 +112,7 @@ class AipSpeech(
         format: String,
         rate: Int
     ): AsrRequest {
-        val speech = Base64Util.encode(data)
+        val speech = Base64.encodeToString(data, Base64.NO_WRAP) ?: ""
         return AsrRequest(
             format = format,
             rate = rate,
