@@ -7,14 +7,14 @@ group = rootProject.ext.MAVEN_GROUP
 
 android {
 
-    compileSdkVersion compile_sdk_version
-    buildToolsVersion build_tools_version
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
 
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -31,22 +31,21 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation deps.androidx.appcompat
+    implementation deps.kotlin.stdlib
     //rxjava
-    api "io.reactivex.rxjava2:rxjava:2.2.7"
-    api 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    api deps.rxjava2.rxjava
+    api deps.rxjava2.rxandroid
     //retrofit
-    def retrofit2_version = "2.5.0"
-    implementation 'com.squareup.okio:okio:2.1.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.13.1'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.13.1'
-    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
+    implementation deps.okhttp.okio
+    implementation deps.okhttp.okhttp
+    implementation deps.okhttp.logging_interceptor
+    implementation deps.retrofit.retrofit
+    implementation deps.retrofit.converter_gson
+    implementation deps.retrofit.adapter_rxjava2
     //tool
-    implementation 'com.google.code.gson:gson:2.8.5'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.2-alpha01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
+    implementation deps.gson
+    testImplementation deps.test.junit
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.espresso_core
 }
