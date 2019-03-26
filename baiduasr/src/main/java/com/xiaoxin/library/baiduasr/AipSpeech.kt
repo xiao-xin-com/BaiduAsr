@@ -43,11 +43,13 @@ class AipSpeech(
     }
 
     private fun getAccessToken(): Single<String> {
-        val accessToken = sp.getString(KEY_ACCESS_TOKEN, null)
-        return if (accessToken?.isNotBlank() == true) {
-            Single.just(accessToken)
-        } else {
-            oauth().map { it.accessToken }
+        return Single.defer {
+            val accessToken = sp.getString(KEY_ACCESS_TOKEN, null)
+            if (accessToken?.isNotBlank() == true) {
+                Single.just(accessToken)
+            } else {
+                oauth().map { it.accessToken }
+            }
         }
     }
 
